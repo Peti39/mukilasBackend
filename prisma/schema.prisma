@@ -14,3 +14,28 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+enum Material {
+  wood
+  metal
+  plastic
+  other
+}
+
+model Toy {
+  id Int @id @default(autoincrement())
+  name String
+  material Material
+  wheight Float
+
+  whisedBy Kid[] 
+}
+
+model Kid{
+  id Int @id @default(autoincrement())
+  name String
+  location String
+  wasGood Boolean
+
+  whishedFor Toy[]
+}
