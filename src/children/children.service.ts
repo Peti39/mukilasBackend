@@ -9,6 +9,7 @@ import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ChildrenService {
+  
   constructor(private readonly db:PrismaService) {}
   async assignToyToChild(kidId: number, toyId: number) {
     const kidfinder = await this.db.kid.findUnique({
@@ -43,6 +44,21 @@ export class ChildrenService {
       throw new Error(`Error assigning toy with id ${toyId} to kid with id ${kidId}`);
     }
     return assignment;
+  }
+
+  async getToysOfChild(id: number) {
+    const kid = await this.db.kid.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        whishedFor: true,
+      },
+    });
+    if (!kid) {
+      throw new Error(`Kid with id ${id} not found`);
+    }
+    return kid.whishedFor;
   }
 
   async deassignToyToChild(kidId: number, toyId: number) {
@@ -90,6 +106,16 @@ export class ChildrenService {
 
   findAll() {
     return this.db.kid.findMany();
+  }
+
+  async getChildsToys(){
+    return this.db.kid.findMany({
+      omit: {location : true,wasGood : true},
+      include: {
+        whishedFor: true,
+      },
+      
+    });
   }
 
   async findOne(id: number) {

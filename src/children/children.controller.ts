@@ -18,6 +18,12 @@ export class ChildrenController {
     return this.childrenService.findAll();
   }
 
+  @Get('toys')
+  async getChildsToys() {
+    return this.childrenService.getChildsToys();
+  }
+
+  
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -44,6 +50,17 @@ export class ChildrenController {
           throw new HttpException({error: `Kid with id ${id} not found. Error:${error}`}, 404);
     }
   }
+
+  @Get(':id/toys')
+  async getToysOfChild(@Param('id') id: string) {
+    try {
+      return await this.childrenService.getToysOfChild(+id);
+    } catch (error) {
+      throw new HttpException({error: `Error retrieving toys of kid with id ${id}. Error:${error}`}, 404);
+    }
+  }
+
+  
 
   @Put(':id/toys/:toyId')
   async assignToyToChild(@Param('id') id: string, @Param('toyId') toyId: string) {
