@@ -26,7 +26,7 @@ model Toy {
   id Int @id @default(autoincrement())
   name String
   material Material
-  wheight Float
+  weight Float
 
   whisedBy Kid[] 
 }

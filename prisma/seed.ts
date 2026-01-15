@@ -32,7 +32,7 @@ async function main() {
         data: {
           name : faker.commerce.productName(),
           material : faker.helpers.arrayElement(materials) as Material,
-          wheight : faker.number.float({ min: 0.1, max: 5.0,multipleOf: 0.1 }),
+          weight : faker.number.float({ min: 0.1, max: 5.0,multipleOf: 0.1 }),
         },
       })
     }
