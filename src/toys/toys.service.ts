@@ -14,7 +14,7 @@ export class ToysService {
   constructor (private readonly db: PrismaService) {}
   create(createToyDto: CreateToyDto) {
     return this.db.toy.create({
-      data: {name: createToyDto.name, material: createToyDto.material, wheight: createToyDto.weight},
+      data: {name: createToyDto.name, material: createToyDto.material, weight: createToyDto.weight},
     })
   }
 
@@ -53,7 +53,7 @@ export class ToysService {
         data: {
           name: updateToyDto.name ? updateToyDto.name : undefined,
           material: updateToyDto.material ? updateToyDto.material : undefined,
-          wheight: updateToyDto.weight? updateToyDto.weight : undefined,
+          weight: updateToyDto.weight? updateToyDto.weight : undefined,
         },
       });
       if (!updater) {
